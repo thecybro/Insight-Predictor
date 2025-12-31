@@ -1,0 +1,84 @@
+X values: [1, 2, 3, 4, 5]
+X variance: 2.0000000000000004
+
+Y values: [2, 4, 6, 8, 10]
+Y variance: 8.000000000000002
+
+Result:
+
+Y variance = 4.0x X variance
+Covariance(X,Y):  4.0
+
+[Done] exited with code=0 in 4.037 seconds
+
+[Running] python -u "d:\Insight-Predictor\main.py"
+X values: [1, 2, 3, 4, 5]
+X variance: 2.0000000000000004
+
+Y values: [2.1, 4.2, 6.3, 8.4, 10.5]
+Y variance: 8.820000000000007
+
+Result:
+
+Y variance = 4.410000000000003x X variance
+Covariance(X,Y):  4.200000000000002
+
+[Done] exited with code=0 in 2.873 seconds
+
+[Running] python -u "d:\Insight-Predictor\main.py"
+X values: [1, 2, 3, 4, 5]
+X variance: 2.0000000000000004
+
+Y values: [2.1, 4.2, 6.3, 8.4, 10.5]
+Y variance: 8.820000000000007
+
+Result:
+
+Y variance = 4.410000000000003x X variance
+Covariance(X,Y):  4.200000000000002
+Correlation coefficient:  1.0
+
+[Done] exited with code=0 in 3.257 seconds
+
+[Running] python -u "d:\Insight-Predictor\main.py"
+X values: [1, 2, 3, 4, 5]
+X variance: 2.0000000000000004
+
+Y values: [2.0, 5.0, 5.0, 8.0, 10.5]
+Y variance: 8.440000000000005
+
+Result:
+
+Y variance = 4.2200000000000015x X variance
+Covariance(X,Y):  4.000000000000002
+Correlation coefficient:  0.973584767022471
+
+[Done] exited with code=0 in 5.823 seconds
+
+[Running] python -u "d:\Insight-Predictor\main.py"
+X values: [1, 2, 3, 4, 15]
+X variance: 25.999999999999996
+
+Y values: [2.0, 5.0, 15.0, 8.0, 10.5]
+Y variance: 20.04000000000001
+
+Result:
+
+X variance = 1.2974051896207577X greater than Y variance
+Covariance(X,Y):  8.800000000000002
+Correlation coefficient:  0.385520200861812
+
+[Done] exited with code=0 in 2.146 seconds
+
+[Running] python -u "d:\Insight-Predictor\main.py"
+X values: [1, 2, 3, 4, 15]
+X variance: 25.999999999999996
+
+Y values: [2.0, 5.0, 15.0, 8.0, 10.5]
+Y variance: 20.04000000000001
+
+Result:
+
+X variance = 1.2974051896207577x Y variance
+Covariance(X,Y):  8.800000000000002
+Correlation coefficient:  0.385520200861812
