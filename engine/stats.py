@@ -1,6 +1,6 @@
-from math import fabs
-
 from storage.formulae import mean, std_dev, variance, covariance, correlation_coefficient, findX, findY, bxy, byx
+
+from storage.manager import storer
 
 def mean_displayer(X):
     return mean(X)
@@ -57,12 +57,13 @@ def interpreter(r):
         elif r == 1:
             return "Perfect positive correlation"
         
-def validity_checker(X, Y, n):
+def validity_checker(X, Y):
     r = correlation_coefficient(X, Y) #correlation coefficient(r)
     validity = 100
+    n = len(X)
 
     #For |r|:
-    r = fabs(r) #fabs for floating value
+    r = abs(r) #abs for absolute value
 
     distance_from_r = 1-r
 
@@ -70,10 +71,11 @@ def validity_checker(X, Y, n):
     if n not in [min(X), max(X)]:
         distance_from_range = min(X) - n if n < min(X) else n - max(X)
     
-    ##For data sufficiency
-    #n= = len(X) ##Lmao
+    #For data sufficiency
+
 
 def train_model(X, Y):
+    n = len(X)
     xmean = mean(X)
     ymean = mean(Y)
     Bxy = bxy(X, Y)
@@ -83,6 +85,7 @@ def train_model(X, Y):
     Covariance = covariance(X, Y)
 
     return {
+    "n": n,
     "xmean": xmean,
     "ymean": ymean,
     "bxy": Bxy,
