@@ -1,0 +1,3 @@
+Notes:
+Validity = correlation strength × data stability × (1 − extrapolation risk)
+
