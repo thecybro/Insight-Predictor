@@ -20,6 +20,6 @@ df = pd.read_csv(file)
 X = df["X"].values.tolist()
 Y = df["Y"].values.tolist()
 
-prediction_validity = validity_checker(X, Y, 58)
+prediction_validity = validity_checker(X, Y, 59)
 
 print(prediction_validity)

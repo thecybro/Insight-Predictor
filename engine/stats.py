@@ -1,6 +1,7 @@
 import pandas as pd
 
-from storage.formulae import mean, std_dev, variance, covariance, correlation_coefficient, findX, findY, bxy, byx
+from storage.formulae import mean, std_dev, variance, covariance, correlation_coefficient
+from storage.formulae import findX, findY, bxy, byx
 
 file = "data/sample.csv"
 file2 = "data/outputs.csv"
@@ -62,62 +63,11 @@ def interpreter(r):
         elif r == 1:
             return "Perfect positive correlation"
         
-# def validity_checker(X, Y, predict_value=None):
-#     r = abs(correlation_coefficient(X, Y)) #correlation coefficient(r)
-#     current_n = len(X)
-#     threshold = 0.005
-#     k = 5 #Keeping it as stability window
-
-#     if r == 0:
-#         return {"validity": "0%"}
-
-#     validity = 100*r
-
-
-#     #For data sufficiency
-#     df = pd.read_csv(file3)  #changes.csv
-
-#     results = df["result"].values.tolist()
-
-#     converged_n = None
-
-#     if len(results) >= k and all(r < threshold for r in results[-k:]):
-#         converged_n = current_n
-#     else:
-#         validity *= 0.7 #To penalize if not converged
-
-
-#     #For distance outside observed range (extrapolation)
-#     if predict_value is not None:
-#         min_y, max_y = min(Y), max(Y)
-
-#         if predict_value < min_y:
-#             distance = min_y - predict_value
-#         elif predict_value > max_y:
-#             distance = predict_value - max_y
-#         else:
-#             distance = 0
-
-#         if distance > 0:
-#             # penalty = min(0.5, distance / (max_y - min_y))
-#             # validity *= (1 - penalty)
-
-#             validity *= 100*(1-distance)
-
-#     #After finishing all
-#     validity = max(0, min(100, validity))
-
-
-#     return {
-#         "validity": f"{round(validity, 2)}%",
-#         "r": round(r, 4),
-#         "n": current_n,
-#         "converged": converged_n is not None
-#     }
-
 def validity_checker(X, Y, predict_value=None):
     r = abs(correlation_coefficient(X, Y)) #correlation coefficient(r)
     current_n = len(X)
+    converged_n = None
+    converged_case = None
     threshold = 0.005
     k = 5 #Stability window
 
@@ -130,7 +80,7 @@ def validity_checker(X, Y, predict_value=None):
     #For distance outside observed range (extrapolation)
     if predict_value not in [min(Y), max(Y)]:
         if predict_value < min(Y):
-            distance_from_range = min(Y) - predict_value
+            distance_from_range = abs(predict_value - min(Y))
 
         elif predict_value > max(Y):
             distance_from_range = predict_value - max(Y)
@@ -147,27 +97,41 @@ def validity_checker(X, Y, predict_value=None):
         validity = 90 / (1 + (116-58)/58)
         = 90/2
         = 45%
-        ''' #Yet to make it better, cuz the logic is kinda weak
+        ''' #Couldn't find a reliable formula, so made one up.
 
         
     #For data sufficiency
     df = pd.read_csv(file3)  #changes.csv
+    total_n = len(df) + 5 #Cuz starting form 6
+    i = 0
 
-    for i,result in zip(enumerate(df["result"].values.tolist(), start=1)):
-        if result < threshold and i >= k:
-            converged = True
-            break
+    for result in df["result"].values.tolist():
+        if result < threshold:
+            i += 1
+
         else:
-            converged = False
-            validity *= 7
-            break
+            i = 0
+        
+    if i >= k:
+        converged_case = True
+        converged_n = total_n - i
+
+    else:
+        converged_case = False
+        converged_n = None
+        
+    if converged_case == False:
+        validity *= 0.7
+
         
     #After finishing all
     return {
         "validity": f"{validity:.2f}%",
         "r": r,
-        "c"
-    }
+        "converged": converged_case,
+        "current n": current_n,
+        "converged n": converged_n if converged_n else "N/A"
+        }
 
 
 def train_model(X, Y):
